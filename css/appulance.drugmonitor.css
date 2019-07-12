@@ -1,0 +1,51 @@
+.popup {
+	background-color: rgb(239, 239, 244)
+}
+
+#finalise .content-block-inner + .content-block-inner {
+	margin-top: -1px;
+}
+
+.fentanyl-final,
+.methoxyflurane-final,
+.morphine-final,
+.midazolam-final,
+.ketamine-final,
+.propofol-final {
+	display: none;
+}
+
+.big-button {
+	margin-bottom: -20px !important;
+}
+
+.swiper-slide {
+  background: #fff;
+  box-sizing: border-box;
+  border: 1px solid #ccc;
+}
+.swiper-slide span {
+  text-align:center;
+  display:block;
+  margin: 20px;
+  font-size:21px;
+}
+.swiper-container {
+  height: 120px;
+  margin: 35px 0;
+}
+
+.item-content {
+
+}
+
+.item-inner {
+
+}
+
+.item-title-row {
+}
+
+.item-subtitle {
+	display: none;
+}

@@ -1,0 +1,576 @@
+<!DOCTYPE html>
+<html lang="en" manifest="manifest.appcache.php">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no">
+	<meta name="apple-mobile-web-app-capable" content="yes">
+	<meta name="apple-mobile-web-app-status-bar-style" content="default" />
+	<meta name="format-detection" content="telephone=no">
+	<link rel="icon" type="image/png" href="img/appulance-16.png">
+	<link rel="apple-touch-icon" href="img/apple-touch-icon.png">
+    
+    <!-- iPhone SPLASHSCREEN--><link href="img/apple-touch-startup-image-320x460.png" media="(device-width: 320px)" rel="apple-touch-startup-image">
+    <!-- iPhone (Retina) SPLASHSCREEN--><link href="img/apple-touch-startup-image-640x920.png" media="(device-width: 320px) and (-webkit-device-pixel-ratio: 2)" rel="apple-touch-startup-image">
+    <!-- iPad (portrait) SPLASHSCREEN--><link href="img/apple-touch-startup-image-768x1004.png" media="(device-width: 768px) and (orientation: portrait)" rel="apple-touch-startup-image">
+    <!-- iPad (landscape) SPLASHSCREEN--><link href="img/apple-touch-startup-image-748x1024.png" media="(device-width: 768px) and (orientation: landscape)" rel="apple-touch-startup-image">
+    <!-- iPad (Retina, portrait) SPLASHSCREEN--><link href="img/apple-touch-startup-image-1536x2008.png" media="(device-width: 1536px) and (orientation: portrait) and (-webkit-device-pixel-ratio: 2)" rel="apple-touch-startup-image">
+    <!-- iPad (Retina, landscape) SPLASHSCREEN--><link href="img/apple-touch-startup-image-2048x1496.png" media="(device-width: 1536px)  and (orientation: landscape) and (-webkit-device-pixel-ratio: 2)" rel="apple-touch-startup-image">
+	
+	<title>Drug Tracker</title>
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/framework7/1.6.5/css/framework7.ios.min.css">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/framework7/1.6.5/css/framework7.ios.colors.min.css">
+	<link rel="stylesheet" href="css/framework7.keypad.min.css">
+	<link rel="stylesheet" href="css/appulance.drugmonitor.css">
+</head>
+
+<body>
+	<!-- Status bar overlay for fullscreen mode-->
+	<div class="statusbar-overlay"></div>
+	
+	<!-- Panels overlay-->
+	<div class="panel-overlay"></div>
+	
+	<!-- Popups -->
+	<div class="popup incident-detail">
+		<div class="navbar">
+			<div class="navbar-inner">
+				<div class="left"></div>
+				<div class="center sliding">Incident Details</div>
+				<div class="right">
+					<a href="#" class="close-popup">Done</a>
+				</div>
+			</div>
+		</div>
+		
+		<form class="page-content" name="view-incident" id="view-incident">
+			<div class="content-block-title">Case Details</div>
+			<div class="list-block">
+				<ul>
+					<li>
+						<div class="item-content">
+							<div class="item-inner"> 
+								<div class="item-title label">Date</div>
+								<div class="item-input"><input type="text" readonly="readonly" name="incident-date" id="incident-date" /></div>
+							</div>
+						</div>
+					</li>
+					<li>
+						<div class="item-content">
+							<div class="item-inner"> 
+								<div class="item-title label">Time</div>
+								<div class="item-input"><input type="text" readonly="readonly" name="incident-time" id="incident-time" /></div>
+							</div>
+						</div>
+					</li>
+					<li>
+						<div class="item-content">
+							<div class="item-inner"> 
+								<div class="item-title label">Name</div>
+								<div class="item-input"><input type="text" readonly="readonly" name="incident-name" id="incident-name" /></div>
+							</div>
+						</div>
+					</li>
+					<li>
+						<div class="item-content">
+							<div class="item-inner"> 
+								<div class="item-title label">eARF</div>
+								<div class="item-input"><input type="text" readonly="readonly" name="incident-number" id="incident-number" /></div>
+							</div>
+						</div>
+					</li>
+				</ul>
+			</div>
+		
+			<div class="content-block">
+				<div class="row">
+					<div class="col-100"><a class="button button-big button-fill color-red" id="delete-incident">Delete this Incident</a></div>
+				</div>
+			</div>
+		
+			<div class="content-block-title methoxyflurane">Methoxyflurane</div>
+			<div class="list-block methoxyflurane">
+				<ul>
+					<li>
+						<div class="item-content">
+							<div class="item-inner"> 
+								<div class="item-title label">Dose</div>
+								<div class="item-input"><input type="text" readonly="readonly" name="methoxyflurane-dose" id="methoxyflurane-dose" /></div>
+							</div>
+						</div>
+					</li>
+				</ul>
+			</div>
+		
+			<div class="content-block-title morphine">Morphine</div>
+			<div class="list-block morphine">
+				<ul>
+					<li>
+						<div class="item-content">
+							<div class="item-inner"> 
+								<div class="item-title label">Dose</div>
+								<div class="item-input"><input type="text" readonly="readonly" name="morphine-dose" id="morphine-dose" /></div>
+							</div>
+						</div>
+					</li>
+					<li>
+						<div class="item-content">
+							<div class="item-inner"> 
+								<div class="item-title label">Discard</div>
+								<div class="item-input"><input type="text" readonly="readonly" name="morphine-discard" id="morphine-discard" /></div>
+							</div>
+						</div>
+					</li>
+				</ul>
+			</div>
+
+			<div class="content-block-title fentanyl">Fentanyl</div>
+			<div class="list-block fentanyl">
+				<ul>
+					<li>
+						<div class="item-content">
+							<div class="item-inner"> 
+								<div class="item-title label">Dose</div>
+								<div class="item-input"><input type="text" readonly="readonly" name="fentanyl-dose" id="fentanyl-dose" /></div>
+							</div>
+						</div>
+					</li>
+					<li>
+						<div class="item-content">
+							<div class="item-inner"> 
+								<div class="item-title label">Discard</div>
+								<div class="item-input"><input type="text" readonly="readonly" name="fentanyl-discard" id="fentanyl-discard" /></div>
+							</div>
+						</div>
+					</li>
+				</ul>
+			</div>
+		
+			<div class="content-block-title midazolam">Midazolam</div>
+			<div class="list-block midazolam">
+				<ul>
+					<li>
+						<div class="item-content">
+							<div class="item-inner"> 
+								<div class="item-title label">Dose</div>
+								<div class="item-input"><input type="text" readonly="readonly" name="midazolam-dose" id="midazolam-dose" /></div>
+							</div>
+						</div>
+					</li>
+					<li>
+						<div class="item-content">
+							<div class="item-inner"> 
+								<div class="item-title label">Discard</div>
+								<div class="item-input"><input type="text" readonly="readonly" name="midazolam-discard" id="midazolam-discard" /></div>
+							</div>
+						</div>
+					</li>
+				</ul>
+			</div>
+		
+			<div class="content-block-title ketamine">Ketamine</div>
+			<div class="list-block ketamine">
+				<ul>
+					<li>
+						<div class="item-content">
+							<div class="item-inner"> 
+								<div class="item-title label">Dose</div>
+								<div class="item-input"><input type="text" readonly="readonly" name="ketamine-dose" id="ketamine-dose" /></div>
+							</div>
+						</div>
+					</li>
+					<li>
+						<div class="item-content">
+							<div class="item-inner"> 
+								<div class="item-title label">Discard</div>
+								<div class="item-input"><input type="text" readonly="readonly" name="ketamine-discard" id="ketamine-discard" /></div>
+							</div>
+						</div>
+					</li>
+				</ul>
+			</div>
+		
+			<div class="content-block-title propofol">Propofol</div>
+			<div class="list-block propofol">
+				<ul>
+					<li>
+						<div class="item-content">
+							<div class="item-inner"> 
+								<div class="item-title label">Dose</div>
+								<div class="item-input"><input type="text" readonly="readonly" name="propofol-dose" id="propofol-dose" /></div>
+							</div>
+						</div>
+					</li>
+					<li>
+						<div class="item-content">
+							<div class="item-inner"> 
+								<div class="item-title label">Discard</div>
+								<div class="item-input"><input type="text" readonly="readonly" name="propofol-discard" id="propofol-discard" /></div>
+							</div>
+						</div>
+					</li>
+				</ul>
+			</div>
+		</form>
+	</div>
+	
+	<div class="popup finalise">
+		<div class="navbar">
+			<div class="navbar-inner">
+				<div class="left"></div>
+				<div class="center sliding">Finalise</div>
+				<div class="right">
+					<a href="#" class="close-popup">Done</a>
+				</div>
+			</div>
+		</div>
+		
+		<div class="page-content" name="finalise" id="finalise">
+			<div class="content-block-title fentanyl-final">Fentanyl</div>
+			<div class="content-block fentanyl-final" id="fentanyl-finalised">
+			</div>
+			
+			<div class="content-block-title methoxyflurane-final">Methoxyflurane</div>
+			<div class="content-block methoxyflurane-final" id="methoxyflurane-finalised">
+			</div>
+			
+			<div class="content-block-title morphine-final">Morphine</div>
+			<div class="content-block morphine-final" id="morphine-finalised">
+			</div>
+			
+			<div class="content-block-title midazolam-final">Midazolam</div>
+			<div class="content-block midazolam-final" id="midazolam-finalised">
+			</div>
+			
+			<div class="content-block-title ketamine-final">Ketamine</div>
+			<div class="content-block ketamine-final" id="ketamine-finalised">
+			</div>
+			
+			<div class="content-block-title propofol-final">Propofol</div>
+			<div class="content-block propofol-final" id="propofol-finalised">
+			</div>
+		</div>
+	</div>
+	
+	<div class="popup create-incident">
+		<div class="navbar">
+			<div class="navbar-inner">
+				<div class="left">
+					<a href="#" class="close-popup">Cancel</a>
+				</div>
+				<div class="center sliding">New Incident</div>
+				<div class="right">
+					<a href="#" id="save-incident">Save</a>
+				</div>
+			</div>
+		</div>
+		
+		<form class="page-content" name="incident-details" id="incident-details">
+			<div class="content-block-title">Incident Details</div>
+			<div class="list-block">
+				<ul>
+					<li>
+						<div class="item-content">
+							<div class="item-inner"> 
+								<div class="item-title label">Date</div>
+								<div class="item-input">
+									<input type="date" placeholder="date of administration" name="incident-date" id="incident-date" />
+								</div>
+							</div>
+						</div>
+					</li>
+					<li>
+						<div class="item-content">
+							<div class="item-inner"> 
+								<div class="item-title label">Time</div>
+								<div class="item-input">
+									<input type="time" placeholder="time of administration" name="incident-time" id="incident-time" />
+								</div>
+							</div>
+						</div>
+					</li>
+					<li>
+						<div class="item-content">
+							<div class="item-inner"> 
+								<div class="item-title label">Name</div>
+								<div class="item-input">
+									<input type="text" placeholder="patient name" name="incident-name" id="incident-name" />
+								</div>
+							</div>
+						</div>
+					</li>
+					<li>
+						<div class="item-content">
+							<div class="item-inner"> 
+								<div class="item-title label">eARF</div>
+								<div class="item-input">
+									<input type="numpad" class="dose-input" placeholder="eARF number" name="incident-number" id="incident-number" />
+								</div>
+							</div>
+						</div>
+					</li>
+				</ul>
+			</div>
+
+			<div class="content-block-title">Methoxyflurane</div>
+			<div class="list-block">
+				<ul>
+					<li>
+						<div class="item-content">
+							<div class="item-inner">
+								<div class="item-title label">Dosage</div>
+								<div class="item-input">
+									<select name="methoxyflurane-dose" placeholder="total administered">
+										<option value="0">0 mL</option>
+										<option value="3">3 mL</option> 
+										<option value="6">6 mL</option>
+										<option value="9">9 mL</option>
+									</select>
+								</div>
+							</div>
+						</div>
+					</li>
+				</ul>
+			</div>
+
+			<div class="content-block-title">Morphine</div>
+			<div class="list-block">
+				<ul>
+					<li>
+						<div class="item-content">
+							<div class="item-inner">
+								<div class="item-title label">Dosage</div>
+								<div class="item-input">
+									<input type="numpad" class="dose-input" placeholder="total administered" id="morphine-dose" name="morphine-dose">
+								</div>
+							</div>
+						</div>
+					</li>
+					<li>
+						<div class="item-content">
+							<div class="item-inner">
+								<div class="item-title label">Discard</div>
+								<div class="item-input">
+									<input type="numpad" class="dose-input" placeholder="total discard" id="morphine-dose" name="morphine-discard">
+								</div>
+							</div>
+						</div>
+					</li>
+				</ul>
+			</div>
+
+			<div class="content-block-title">Fentanyl</div>
+			<div class="list-block">
+				<ul>
+					<li>
+						<div class="item-content">
+							<div class="item-inner">
+								<div class="item-title label">Dosage</div>
+								<div class="item-input">
+									<input type="numpad" class="dose-input" placeholder="total administered" step="any" min="0" pattern="[0-9]*" name="fentanyl-dose">
+								</div>
+							</div>
+						</div>
+					</li>
+					<li>
+						<div class="item-content">
+							<div class="item-inner">
+								<div class="item-title label">Discard</div>
+								<div class="item-input">
+									<input type="numpad" class="dose-input" placeholder="total discard" step="any" min="0" pattern="[0-9]*" name="fentanyl-discard">
+								</div>
+							</div>
+						</div>
+					</li>
+				</ul>
+			</div>
+			
+			<div class="content-block-title">Midazolam</div>
+			<div class="list-block">
+				<ul>
+					<li>
+						<div class="item-content">
+							<div class="item-inner">
+								<div class="item-title label">Dosage</div>
+								<div class="item-input">
+									<input type="numpad" class="dose-input" placeholder="total administered" pattern="[0-9]*" name="midazolam-dose">
+								</div>
+							</div>
+						</div>
+					</li>
+					<li>
+						<div class="item-content">
+							<div class="item-inner">
+								<div class="item-title label">Discard</div>
+								<div class="item-input">
+									<input type="numpad" class="dose-input" placeholder="total discard" pattern="[0-9]*" name="midazolam-discard">
+								</div>
+							</div>
+						</div>
+					</li>
+				</ul>
+			</div>
+
+			<div class="content-block-title">Ketamine</div>
+			<div class="list-block">
+				<ul>
+					<li>
+						<div class="item-content">
+							<div class="item-inner">
+								<div class="item-title label">Dosage</div>
+								<div class="item-input">
+									<input type="numpad" class="dose-input" placeholder="total administered" pattern="[0-9]*" name="ketamine-dose">
+								</div>
+							</div>
+						</div>
+					</li>
+					<li>
+						<div class="item-content">
+							<div class="item-inner">
+								<div class="item-title label">Discard</div>
+								<div class="item-input">
+									<input type="numpad" class="dose-input" placeholder="total discard" pattern="[0-9]*" name="ketamine-discard">
+								</div>
+							</div>
+						</div>
+					</li>
+				</ul>
+			</div>
+
+			<div class="content-block-title">Propfol</div>
+			<div class="list-block">
+				<ul>
+					<li>
+						<div class="item-content">
+							<div class="item-inner">
+								<div class="item-title label">Dosage</div>
+								<div class="item-input">
+									<input type="numpad" class="dose-input"placeholder="total administered" step="any" pattern="[0-9]*" name="propofol-dose">
+								</div>
+							</div>
+						</div>
+					</li>
+					<li>
+						<div class="item-content">
+							<div class="item-inner">
+								<div class="item-title label">Discard</div>
+								<div class="item-input">
+									<input type="numpad" class="dose-input" placeholder="total discard" step="any" pattern="[0-9]*" name="propofol-discard">
+								</div>
+							</div>
+						</div>
+					</li>
+				</ul>
+			</div>
+
+		</form>
+	</div>
+	
+	<div class="popover popover-about">
+		<div class="popover-angle"></div>
+		<div class="popover-inner">
+			<div style="margin: 20px auto -20px; text-align: center;"><img src="img/appulance-128.png"  /></div>
+			
+			<div class="content-block-title">About</div>
+			<div class="content-block">
+				<div class = "content-block-inner">
+					Crafted with love in Carina Heights by <a href="//adamroe.me/">Adam Roe</a>.
+				</div>
+			</div>
+			
+			<div class="content-block-title">HELP!</div>
+			<div class="content-block">
+				<div class="content-block-inner">
+					<a class="button" id="reload-app">Try reloading first!</a><br/>
+					<strong>via email</strong>: <a href="mailto:adam.roe@me.com">adam.roe@me.com</a></br>
+					<strong>via Twitter</strong>: <a href="//twitter.com/xadammr">@xadammr</a>
+				</div>
+			</div>
+			
+			<div class="content-block-title">Share this App!</div>
+			<div class="content-block">
+				<div class = "content-block-inner">
+					Know someone who might be interested?</br>
+					Send them to <a href="//appulance.com/drugs">appulance.com/drugs</a>. 
+				</div>
+			</div>
+		</div>
+	</div>
+	
+	<!-- Views-->
+	<div class="views">
+		<!-- Your main view, should have "view-main" class-->
+		<div class="view view-main">
+			<!-- Top Navbar-->
+			<div class="navbar">
+				<div class="navbar-inner">
+					<div class="left"><a href="#" data-popover=".popover-about" class="open-popover">About</a></div>
+					<div class="center sliding">Drug Tracker</div>
+					<div class="right">
+						<a href="#" id="new-incident" class="link">New...</a>
+					</div>
+				</div>
+			</div>
+			
+			<!-- Pages, because we need fixed-through navbar and toolbar, it has additional appropriate classes-->
+			<div class="pages navbar-through toolbar-through">
+				<!-- Page, data-page contains page name-->
+				<div data-page="home" class="page">
+					<!-- Scrollable page content-->
+					<div class="page-content">
+						<div class="content-block-title top-tip" style="display: none;">Top Tip</div>
+						<div class="content-block top-tip" style="display: none;">
+							<div class="content-block-inner">
+								<strong>Dig this app? Why not add it to your home screen!</strong><br/>
+								Click the "Share" button in the toolbar, then "Add to Home Screen".
+							</div>
+						</div>
+						
+			                  <div class="content-block-title getting-started">Getting started</div>
+			                  <div class="content-block getting-started">
+							<div class = "content-block-inner">
+								To get started, add a new incident by clicking "New..." in the top right corner.</br>
+								All data is stored locally on the device, no data is sent to a third-party server.
+							</div>
+						 </div>
+
+						<div class="content-block-title incidents">Incidents</div>
+						<div class="list-block media-list incidents" id="incident-list">
+							<ul id="incident-list-inner">
+								
+							</ul>
+						</div>
+
+						<div class="content-block big-button">
+							<div class="row">
+								<div class="col-100"><a href="#" class="button button-big button-fill color-green" id="do-finalise">Finalise...</a></div>
+							</div>
+						</div>
+						
+						<div class="content-block">
+							<div class="row">
+								<div class="col-100"><a href="#" class="button button-big button-fill color-red" id="delete-all">Delete all Incidents</a></div>
+							</div>
+						</div>
+
+				</div>
+			</div>
+		</div>
+	</div>
+    
+	
+	<!-- JS -->
+	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/framework7/1.6.5/js/framework7.js"></script>
+	<script type="text/javascript" src="js/framework7.keypad.min.js"></script>
+    <script type="text/javascript" src="js/appulance.drugmonitor.js?nocache"></script>
+
+	<!-- Google Analytics -->
+	<script>
+		(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+		(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+		m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+		})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+		ga('create', 'UA-60890786-1', 'auto');
+		ga('send', 'pageview');
+	</script>
+</body>
+</html>
